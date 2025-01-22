@@ -6,7 +6,8 @@ html{
     min-height: 100%;
 }
 
-    main{margin-bottom: 250px;}
+    main
+    {margin-bottom: 270px;}
 
 footer.footer{
 
@@ -27,6 +28,7 @@ p{
 //AJOUT d'img avec filter pos absolute et tt le reste relative
 .hero-scene{
     position: relative;
+    margin-bottom: 15px;
     &::before{
         content:"";
         position: absolute;
@@ -76,4 +78,8 @@ p{
         opacity: 0;
         transition: all 0.3s;
     }
+}
+
+.form-label{
+    color: $primary;
 }
