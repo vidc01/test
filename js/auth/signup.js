@@ -114,19 +114,19 @@ const requestOptions = {
   redirect: "follow"
 };
 
-fetch("http://127.0.0.1:8000/api/registration", requestOptions)
-  .then((response) => {
-    if(response.ok){
-        return response.json();
-    }
-    else{
+fetch(apiUrl+"registration", requestOptions)
+.then((response) => {
+    if (!response.ok) {
+        // Afficher l'erreur uniquement si la réponse n'est pas ok
         alert("Erreur lors de l'inscription");
+        return; // Interrompre le processus en cas d'erreur
     }
-
-  })
-  .then((result) => {
-    alert("Bienvenue "+dataForm.get("prenom")+", vous êtes inscrit, vous pouvez vous connecter dès maintenant.")
-    document.location.href="/signin"
+    return response.json(); // Continuer si tout va bien
+})
+.then((result) => {
+    // Afficher le message de bienvenue si tout est ok
+    alert("Bienvenue " + dataForm.get("prenom") + ", vous êtes inscrit, vous pouvez vous connecter dès maintenant.");
+    document.location.href = "/signin"; // Rediriger vers la page de connexion
 })
   .catch((error) => console.error(error));
 }

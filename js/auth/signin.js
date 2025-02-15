@@ -1,28 +1,47 @@
 const mailInput = document.getElementById("EmailInput");
 const passwordInput = document.getElementById("PasswordInput");
-const btnSingin = document.getElementById("btnSignin");
+const btnSignin = document.getElementById("btnSignin");
+const signinForm = document.getElementById("signinForm");
 
+btnSignin.addEventListener("click", checkCredentials);
 
-btnSingin.addEventListener("click", checkCredentials);
+function checkCredentials(event) {
+    event.preventDefault();
+    let dataForm = new FormData(signinForm);
+        
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
-function checkCredentials(){
-    //Ici, il faudra appeler l'API pour vérifier les credentials en BDD
-    
-    if(mailInput.value == "test@mail.com" && passwordInput.value == "123"){
-        //Il faudra récupérer le vrai token
-        const token = "lkjsdngfljsqdnglkjsdbglkjqskjgkfjgbqslkfdgbskldfgdfgsdgf";
+    let raw = JSON.stringify({
+        "username": dataForm.get("email"),
+        "password": dataForm.get("password")
+    });
+
+    let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    fetch(apiUrl+"login", requestOptions)
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            mailInput.classList.add("is-invalid");
+            passwordInput.classList.add("is-invalid");
+        }
+    })
+    .then(result => {
+        const token = result.apiToken;
         setToken(token);
-        //placer ce token en cookie
-
-        setCookie(RoleCookieName, "admin", 7);
+        // Placer ce token en cookie
+        setCookie(RoleCookieName, result.roles[0], 7);
         
-        setTimeout(function(){
+        setTimeout(() => {
             window.location.replace("/");
-        }, 0);
-        
-    }
-    else{
-        mailInput.classList.add("is-invalid");
-        passwordInput.classList.add("is-invalid");
-    }
+        }, 2000);
+    })
+    .catch(error => console.log('error', error));
 }
