@@ -11,11 +11,11 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: ftp-quai.alwaysdata.net
+        server: ftps://ftp-quai.alwaysdata.net
         username: quai
         password: ${{ secrets.password }}
         protocol: ftps
-        port: 1234 # todo replace with your web hosts ftps port
+        port: 990
          exclude:
           **/.git*
           **/.git*/**
