@@ -15,7 +15,7 @@ jobs:
         username: quai
         password: ${{ secrets.ftp_password }}
         port: 990                          
-        secure: true 
+        protocol: ftps
         exclude: |
           **/.git*
           **/.git*/**
