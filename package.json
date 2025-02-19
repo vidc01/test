@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/vidc01/test#readme",
   "dependencies": {
-    "boostrap": "^2.0.0",
+    "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3"
   }
