@@ -1,15 +1,21 @@
-on : push
+on: push
 name: 🚀 Deploy website on push
 jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
+    - name: ⚙️ Configure Git
+      run: git config --global pull.ff only
+
     - name: 🚚 Get latest code
       uses: actions/checkout@v4
       with:
-           fetch-depth: 0
-   
+        fetch-depth: 0  # Évite les erreurs de divergence
+
+    - name: 🔄 Synchroniser avec le dépôt distant
+      run: git pull --ff-only || git pull --rebase
+
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
